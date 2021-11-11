@@ -19,7 +19,7 @@ namespace ProjectManager
         [OneTimeTearDown]
         public void TearDown()
         {
-            AppManager.Instance.Browser.Quit();
+            AppManager.Instance.Browser.Navigate().GoToUrl(AppManager.Instance.Path + "logout_page.php");
         }
     }
 }

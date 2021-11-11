@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OpenQA.Selenium;
+using ProjectManager.Mantis;
+using System.Globalization;
 
 namespace ProjectManager
 {
@@ -19,9 +21,9 @@ namespace ProjectManager
             return new ProjectCreatePage(app);
         }
 
-        public ProjectEditPage OpenProject(int index)
+        public ProjectEditPage OpenProject(int id)
         {
-            Table[index].FindElement(By.XPath("./td/a")).Click();
+            app.Browser.FindElement(By.XPath($"//td/a[contains(@href, 'id={id}')]")).Click();
             return new ProjectEditPage(app);
         }
 
@@ -32,7 +34,7 @@ namespace ProjectManager
             foreach (var value in Table)
             {
                 var tds = value.FindElements(By.XPath("./td"));
-                projectsList.Add(new Project() { Name = tds[0].Text, State = tds[1].Text, Visibility = tds[3].Text, Description = tds[4].Text });
+                projectsList.Add(new Project() { Name = tds[0].Text, State = int.Parse(tds[1].Text), Visibility = int.Parse(tds[3].Text), Description = tds[4].Text });
             }
 
             return projectsList;

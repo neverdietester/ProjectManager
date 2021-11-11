@@ -16,12 +16,12 @@ namespace ProjectManager
         public ProjectPage AddNewProject(Project project)
         {
             app.Browser.FindElement(By.Id("project-name")).SendKeys(project.Name);
-            
-            new SelectElement(app.Browser.FindElement(By.Id("project-status"))).SelectByText(project.State);
+
+            new SelectElement(app.Browser.FindElement(By.Id("project-status"))).SelectByValue(project.State.ToString());
             if (project.IsInheritCriteria)
                 app.Browser.FindElement(By.XPath("//input[@id='project-inherit-global']/../span")).Click();
-            new SelectElement(app.Browser.FindElement(By.Id("project-view-state"))).SelectByText(project.Visibility);
-            
+            new SelectElement(app.Browser.FindElement(By.Id("project-view-state"))).SelectByValue(project.Visibility.ToString());
+
             app.Browser.FindElement(By.Id("project-description")).SendKeys(project.Description);
             app.Browser.FindElement(By.XPath("//input[@value='Add Project']")).Click();
             
